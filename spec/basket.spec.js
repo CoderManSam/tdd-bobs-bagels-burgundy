@@ -1,9 +1,6 @@
 const Basket = require("../src/basket.js")
 describe("Basket", () => {
     let basket
-    const smallBasket = 5;
-    const mediumBasket = 10;
-    const largeBasket = 15;
 
     beforeEach(() => {
         basket = new Basket();
@@ -19,8 +16,8 @@ describe("Basket", () => {
     //Test 2
     it("Add items to basket", () => {
         const expected = [
-            { item: "bagel", quantity: 1, price: 2.99 },
-            { item: "brownie", quantity: 3, price: 3.99 }]
+            { item: "bagel", quantity: 1, price: 2.99, total: 2.99 },
+            { item: "brownie", quantity: 3, price: 3.99, total: 11.97 }]
 
         basket.addItem("bagel", 1)
         basket.addItem("brownie", 3)
@@ -31,7 +28,7 @@ describe("Basket", () => {
     //Test 3
     it("Remove bagel from basket", () => {
         const expected = this.basket = [
-            { item: "brownie", quantity: 3, price: 3.99 }]
+            { item: "brownie", quantity: 3, price: 3.99, total: 11.97}]
 
         basket.addItem("bagel", 1)
         basket.addItem("brownie", 3)
@@ -45,14 +42,14 @@ describe("Basket", () => {
 
             "Basket full, Please choose a bigger basket."
 
-        basket.addItem("bagel", 3)
-        basket.addItem("brownie", 5)
-        let alert = basket.basketCapacity()
+        const alert = basket.addItem("bagel", 10)
+        // basket.addItem("brownie", 5)
         expect(alert).toEqual(expected)
     })
 
     //Test 5
     it("Create basket with larger size", () => {
+        const largeBasket = 15;
         const expected = this.basketSize = largeBasket
 
         new Basket(largeBasket)
@@ -81,9 +78,9 @@ describe("Basket", () => {
 
     //Test 8
     it("favourite bagel quantity", () => {
-        const expected = [{ item: "chocolateBagel", quantity: 1, price: 4.99 },
-        { item: "chocolateBagel", quantity: 1, price: 4.99 },
-        { item: "chocolateBagel", quantity: 1, price: 4.99 }]
+        const expected = [{ item: "chocolateBagel", quantity: 1, price: 4.99, total:4.99 },
+        { item: "chocolateBagel", quantity: 1, price: 4.99, total: 4.99 },
+        { item: "chocolateBagel", quantity: 1, price: 4.99, total: 4.99 }]
 
         basket.addItem("chocolateBagel", 1)
         basket.addItem("chocolateBagel", 1)
@@ -92,9 +89,9 @@ describe("Basket", () => {
         expect(alert).toEqual(expected)
     })
 
-    //Test 9
+    // Test 9
     it("basket total", () => {
-        const expected = "£29.93"
+        const expected = "£17.96"
 
         basket.addItem("chocolateBagel", 3)
         basket.addItem("bagel", 1)
